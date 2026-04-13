@@ -12,28 +12,35 @@
     button { 
       padding: 12px 25px; 
       font-size: 18px; 
+      margin: 10px;
       border: none;
       border-radius: 8px;
-      background-color: #ff4d6d;
-      color: white;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #e63950;
+    #yesBtn {
+      background-color: #28a745;
+      color: white;
+    }
+    #noBtn {
+      background-color: #dc3545;
+      color: white;
+      position: absolute;
     }
     video { 
       margin-top: 20px; 
       width: 300px; 
       border-radius: 12px; 
+      display: none;
     }
   </style>
 </head>
 <body>
 
 <h2>Wanna see my sister? 😄</h2>
-<p>Tap below and don’t be shy…</p>
+<p>Be honest... 😏</p>
 
-<button onclick="startCamera()">Show me 👀</button>
+<button id="yesBtn" onclick="startCamera()">Yes 😍</button>
+<button id="noBtn" onmouseover="moveButton()">No 🙈</button>
 
 <video id="video" autoplay playsinline></video>
 
@@ -41,11 +48,21 @@
 function startCamera() {
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
+      document.getElementById('video').style.display = "block";
       document.getElementById('video').srcObject = stream;
     })
     .catch(() => {
       alert("You gotta allow the camera 😉");
     });
+}
+
+// Move the NO button randomly (fun prank 😄)
+function moveButton() {
+  const btn = document.getElementById("noBtn");
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
 }
 </script>
 
